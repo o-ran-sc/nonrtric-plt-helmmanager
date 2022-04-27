@@ -1,0 +1,8 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Sonia Sangari <sonia.sangari@est.tech>
+Code-Review+2: Henrik Andersson <henrik.b.andersson@est.tech>
+Submitted-by: Henrik Andersson <henrik.b.andersson@est.tech>
+Submitted-at: Wed, 27 Apr 2022 08:57:59 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/nonrtric/plt/helmmanager/+/8129
+Project: nonrtric/plt/helmmanager
+Branch: refs/heads/master
