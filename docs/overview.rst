@@ -13,3 +13,5 @@ Onboard, start, stop, and modify Non-RT-RIC App µServices as Helm Charts.
 * Onboard, Start, Stop, Modify, Monitor.
 * Initial version co-developed with v. similar functions in ONAP.
 * *Limited functionality/integration for now*.
+
+This product is a part of :doc:`NONRTRIC <nonrtric:index>`.

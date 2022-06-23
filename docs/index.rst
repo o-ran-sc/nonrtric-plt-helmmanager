@@ -2,8 +2,8 @@
 .. SPDX-License-Identifier: CC-BY-4.0
 .. Copyright (C) 2021 Nordix
 
-Non-RT RIC
-==========
+Non-RT RIC Helm Manager
+=======================
 
 .. toctree::
    :maxdepth: 2
@@ -14,5 +14,3 @@ Non-RT RIC
    ./api-docs.rst
    ./installation-guide.rst
    ./release-notes.rst
-
-* :ref:`search`
