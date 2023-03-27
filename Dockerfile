@@ -15,7 +15,7 @@
 #  ============LICENSE_END=================================================
 #
 
-FROM curlimages/curl:7.78.0 AS build
+FROM curlimages/curl:7.78.0 AS base-build
 
 #Get helm
 RUN curl -Lo /tmp/helm.tar.gz  https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz
@@ -23,22 +23,36 @@ RUN curl -Lo /tmp/helm.tar.gz  https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.g
 #Get kubectl
 RUN curl -Lo /tmp/kubectl  https://dl.k8s.io/release/v1.20.2/bin/linux/amd64/kubectl
 
+#Get JDK & shrink it to equivalent to a JRE
+FROM openjdk:17-jdk as jre-build
 
-FROM openjdk:11-jre-slim
+RUN $JAVA_HOME/bin/jlink \
+   --verbose \
+   --add-modules ALL-MODULE-PATH \
+   --strip-debug \
+   --no-man-pages \
+   --no-header-files \
+   --compress=2 \
+   --output /customjre
 
-#Install helm
-COPY --from=build /tmp/helm.tar.gz .
+# Use debian base image (same as openjdk uses)
+FROM debian:11-slim
 
-RUN tar -zxvf helm.tar.gz
+#Install helm from base-build image
+COPY --from=base-build /tmp/helm.tar.gz .
+RUN tar -zxvf helm.tar.gz && \
+   mv linux-amd64/helm /usr/local/bin/helm
 
-RUN mv linux-amd64/helm /usr/local/bin/helm
+#Install kubectl from base-build image
+COPY --from=base-build /tmp/kubectl .
+RUN chmod +x ./kubectl  && \
+   mv ./kubectl /usr/local/bin/kubectl
 
-#Install kubectl
-COPY --from=build /tmp/kubectl .
+#Copy JRE from the jre-base image
+ENV JAVA_HOME=/jre
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+COPY --from=jre-build /customjre $JAVA_HOME
 
-RUN chmod +x ./kubectl
-
-RUN mv ./kubectl /usr/local/bin/kubectl
 
 WORKDIR /etc/app/helm-manager
 COPY config/application.yaml .
@@ -50,15 +64,15 @@ ARG user=nonrtric
 ARG group=nonrtric
 
 RUN groupadd $group && \
-    useradd -r -g $group $user
-RUN chown -R $user:$group /opt/app/helm-manager
-RUN chown -R $user:$group /etc/app/helm-manager
+   useradd -r -g $group $user && \
+   chown -R $user:$group /opt/app/helm-manager && \
+   chown -R $user:$group /etc/app/helm-manager
 
-RUN mkdir /var/helm-manager-service
-RUN chown -R $user:$group /var/helm-manager-service
+RUN mkdir /var/helm-manager-service && \
+   chown -R $user:$group /var/helm-manager-service
 
-RUN mkdir /home/$user
-RUN chown -R $user:$group /home/$user
+RUN mkdir /home/$user && \
+   chown -R $user:$group /home/$user
 
 USER $user
 
