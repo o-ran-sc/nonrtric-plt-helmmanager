@@ -17,7 +17,7 @@ See the page in Wiki: `Release E <https://wiki.o-ran-sc.org/display/RICNR/Releas
 Kubernetes deployment
 ---------------------
 
-Non-RT RIC can be also deployed in a Kubernetes cluster, `it/dep repository <https://gerrit.o-ran-sc.org/r/admin/repos/it/dep>`_.
+Non-RT RIC can be also deployed in a Kubernetes cluster, `it/dep repository <https://gerrit.o-ran-sc.org/r/admin/repos/it/dep>`_
 hosts deployment and integration artifacts. Instructions and helm charts to deploy the Non-RT-RIC functions in the
 OSC NONRTRIC integrated test environment can be found in the *./nonrtric* directory.
 
