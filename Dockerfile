@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2020 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2020-2023 Nordix Foundation. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@
 FROM curlimages/curl:7.78.0 AS base-build
 
 #Get helm
-RUN curl -Lo /tmp/helm.tar.gz  https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz
+RUN wget -O /tmp/helm.tar.gz https://nexus.o-ran-sc.org/content/repositories/helm/helm-v3.6.1-linux-amd64.tar.gz
 
 #Get kubectl
-RUN curl -Lo /tmp/kubectl  https://dl.k8s.io/release/v1.20.2/bin/linux/amd64/kubectl
+RUN wget -O /tmp/kubectl https://nexus.o-ran-sc.org/content/repositories/kubectl/v1.20.2/bin/linux/amd64/kubectl
 
 #Get JDK & shrink it to equivalent to a JRE
 FROM openjdk:17-jdk as jre-build
