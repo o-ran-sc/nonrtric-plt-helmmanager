@@ -1,0 +1,8 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Sat, 16 Dec 2023 01:41:10 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/nonrtric/plt/helmmanager/+/12364
+Project: nonrtric/plt/helmmanager
+Branch: refs/heads/i-release
