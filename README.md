@@ -1,4 +1,12 @@
-# O-RAN-SC Non-RT RIC Helm Manager
+# O-RAN-SC Non-RT RIC Helm Manager (Experimental O-RAN-SC Module)
+
+![Status: Deprecated](https://img.shields.io/badge/status-deprecated-red)
+![Status: Experimental](https://img.shields.io/badge/CVE%20Support-none-lightgrey)
+
+> [!CAUTION]
+> **Deprecated**
+>
+> This repository is no longer actively maintained or supported.
 
 The O-RAN Non-RT RIC Helm Manager provides a service to manages application helm charts.
 
