@@ -1,5 +1,6 @@
 #  ============LICENSE_START===============================================
 #  Copyright (C) 2020-2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -15,7 +16,7 @@
 #  ============LICENSE_END=================================================
 #
 
-FROM curlimages/curl:7.78.0 AS base-build
+FROM nexus3.o-ran-sc.org:10001/curlimages/curl:7.78.0 AS base-build
 
 #Get helm
 RUN wget -O /tmp/helm.tar.gz https://nexus.o-ran-sc.org/content/repositories/helm/helm-v3.6.1-linux-amd64.tar.gz
@@ -24,7 +25,8 @@ RUN wget -O /tmp/helm.tar.gz https://nexus.o-ran-sc.org/content/repositories/hel
 RUN wget -O /tmp/kubectl https://nexus.o-ran-sc.org/content/repositories/kubectl/v1.20.2/bin/linux/amd64/kubectl
 
 #Get JDK & shrink it to equivalent to a JRE
-FROM openjdk:17-jdk as jre-build
+FROM nexus3.o-ran-sc.org:10001/amazoncorretto:17.0.17 AS jre-build
+RUN yum install -y binutils
 
 RUN $JAVA_HOME/bin/jlink \
    --verbose \
@@ -35,8 +37,8 @@ RUN $JAVA_HOME/bin/jlink \
    --compress=2 \
    --output /customjre
 
-# Use debian base image (same as openjdk uses)
-FROM debian:11-slim
+# Use debian base image
+FROM nexus3.o-ran-sc.org:10001/debian:11-slim
 
 #Install helm from base-build image
 COPY --from=base-build /tmp/helm.tar.gz .
